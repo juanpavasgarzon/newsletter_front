@@ -42,13 +42,17 @@ export function RichTextEditor({
 
   const lastExternalValue = useRef<string>(value)
   useEffect(() => {
-    if (!editor) return
+    if (!editor) {
+      return
+    }
     if (isInitialMount.current) {
       isInitialMount.current = false
       lastExternalValue.current = value
       return
     }
-    if (lastExternalValue.current === value) return
+    if (lastExternalValue.current === value) {
+      return
+    }
     lastExternalValue.current = value
     const current = editor.getMarkdown()
     if (value !== current) {
@@ -56,7 +60,9 @@ export function RichTextEditor({
     }
   }, [value, editor])
 
-  if (!editor) return null
+  if (!editor) {
+    return null
+  }
 
   return (
     <div

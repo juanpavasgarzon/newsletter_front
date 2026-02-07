@@ -31,7 +31,9 @@ export function SubscribeForm({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const trimmed = email.trim()
-    if (!trimmed || !isValidEmail(trimmed)) return
+    if (!trimmed || !isValidEmail(trimmed)) {
+      return
+    }
     setSuccess(false)
     try {
       await mutation.mutateAsync({ email: trimmed, lang })

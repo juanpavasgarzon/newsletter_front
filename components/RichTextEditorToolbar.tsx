@@ -16,7 +16,9 @@ import type { RichTextEditorToolbarProps } from '@/contracts/components'
 
 export function RichTextEditorToolbar({ editor: ed }: RichTextEditorToolbarProps) {
   const { t } = useTranslation()
-  if (!ed) return null
+  if (!ed) {
+    return null
+  }
   return (
     <div className="border-theme flex flex-wrap items-center gap-0.5 border-b bg-surface-muted p-1">
       <button

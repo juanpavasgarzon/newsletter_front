@@ -16,7 +16,9 @@ export default function AdminRootPage() {
   const { isAdmin, checked } = useAdminSession();
 
   useEffect(() => {
-    if (!checked) return;
+    if (!checked) {
+      return
+    }
     if (isAdmin) {
       router.replace(target);
     } else {

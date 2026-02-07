@@ -9,7 +9,9 @@ export function useDebouncedSearchSync(
   delay: number = SEARCH_DEBOUNCE_MS,
 ): void {
   useEffect(() => {
-    if (inputValue === urlSearchValue) return
+    if (inputValue === urlSearchValue) {
+      return
+    }
     const id = window.setTimeout(() => {
       onSync(inputValue)
     }, delay)

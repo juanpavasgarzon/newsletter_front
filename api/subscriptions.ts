@@ -54,8 +54,12 @@ export async function fetchSubscribers(
   params: FetchSubscribersParams = {},
 ): Promise<SubscribersListResponse> {
   const sp = new URLSearchParams()
-  if (params.cursor) sp.set('cursor', params.cursor)
-  if (params.limit != null) sp.set('limit', String(params.limit))
+  if (params.cursor) {
+    sp.set('cursor', params.cursor)
+  }
+  if (params.limit != null) {
+    sp.set('limit', String(params.limit))
+  }
   const query = sp.toString()
   return request<SubscribersListResponse>(
     `/subscribe${query ? `?${query}` : ''}`,

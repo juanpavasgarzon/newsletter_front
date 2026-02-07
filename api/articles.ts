@@ -19,9 +19,15 @@ function requestAuth<T>(path: string, options: RequestInit = {}): Promise<T> {
 function buildSearchParams(params: FetchArticlesParams): string {
   const sp = new URLSearchParams()
   sp.set('lang', params.lang)
-  if (params.cursor) sp.set('cursor', params.cursor)
-  if (params.limit != null) sp.set('limit', String(params.limit))
-  if (params.q?.trim()) sp.set('q', params.q.trim())
+  if (params.cursor) {
+    sp.set('cursor', params.cursor)
+  }
+  if (params.limit != null) {
+    sp.set('limit', String(params.limit))
+  }
+  if (params.q?.trim()) {
+    sp.set('q', params.q.trim())
+  }
   return sp.toString()
 }
 
@@ -37,8 +43,12 @@ function buildByGroupSearchParams(
 ): string {
   const sp = new URLSearchParams()
   sp.set('lang', params.lang)
-  if (params.cursor) sp.set('cursor', params.cursor)
-  if (params.limit != null) sp.set('limit', String(params.limit))
+  if (params.cursor) {
+    sp.set('cursor', params.cursor)
+  }
+  if (params.limit != null) {
+    sp.set('limit', String(params.limit))
+  }
   return sp.toString()
 }
 
@@ -53,10 +63,18 @@ function buildGroupsSearchParams(
   params: FetchArticleGroupsParams,
 ): string {
   const sp = new URLSearchParams()
-  if (params.lang) sp.set('lang', params.lang)
-  if (params.cursor) sp.set('cursor', params.cursor)
-  if (params.limit != null) sp.set('limit', String(params.limit))
-  if (params.q?.trim()) sp.set('q', params.q.trim())
+  if (params.lang) {
+    sp.set('lang', params.lang)
+  }
+  if (params.cursor) {
+    sp.set('cursor', params.cursor)
+  }
+  if (params.limit != null) {
+    sp.set('limit', String(params.limit))
+  }
+  if (params.q?.trim()) {
+    sp.set('q', params.q.trim())
+  }
   return sp.toString()
 }
 

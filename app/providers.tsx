@@ -1,6 +1,5 @@
 "use client";
 
-// Import i18n-client first to ensure i18next is initialized before any component uses useTranslation
 import "@/lib/i18n-client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

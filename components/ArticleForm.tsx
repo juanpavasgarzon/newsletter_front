@@ -33,7 +33,9 @@ export function ArticleForm({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!filled) return
+    if (!filled) {
+      return
+    }
     await onSubmit({
       lang,
       ...(groupId ? { groupId } : {}),

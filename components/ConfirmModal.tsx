@@ -17,9 +17,13 @@ export function ConfirmModal({
   onCancel,
 }: ConfirmModalProps) {
   useEffect(() => {
-    if (!open) return
+    if (!open) {
+      return
+    }
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onCancel()
+      if (e.key === 'Escape') {
+        onCancel()
+      }
     }
     document.addEventListener('keydown', handleEscape)
     document.body.style.overflow = 'hidden'
@@ -29,7 +33,9 @@ export function ConfirmModal({
     }
   }, [open, onCancel])
 
-  if (!open) return null
+  if (!open) {
+    return null
+  }
 
   const isDanger = variant === 'danger'
 
