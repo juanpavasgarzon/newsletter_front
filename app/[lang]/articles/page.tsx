@@ -5,10 +5,6 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useCallback, useEffect, useState } from "react";
-import {
-  EmptyListIllustration,
-  NoSearchResultsIllustration,
-} from "@/components/illustrations";
 import { getLocaleForDates } from "@/config/i18n";
 import {
   useArticlesByGroupInfiniteQuery,
@@ -105,12 +101,7 @@ export default function ArticlesPage() {
         {showLoader ? (
           <PageLoader label={tLng("home.loadingArticles")} />
         ) : showEmptyList ? (
-          <div className="flex flex-col items-center justify-center pt-6 pb-16 text-center sm:pt-8 sm:pb-20">
-            <EmptyListIllustration
-              className="mb-6 max-h-[200px] w-full max-w-[280px]"
-              width={280}
-              height={200}
-            />
+          <div className="flex min-h-[50vh] flex-col items-center justify-center pt-6 pb-16 text-center sm:pt-8 sm:pb-20">
             <p className="text-primary mb-2 text-xl font-semibold sm:text-2xl">
               {tLng("home.noArticles")}
             </p>
@@ -119,12 +110,7 @@ export default function ArticlesPage() {
             </p>
           </div>
         ) : showEmptySearch ? (
-          <div className="flex flex-col items-center justify-center pt-6 pb-16 text-center sm:pt-8 sm:pb-20">
-            <NoSearchResultsIllustration
-              className="mb-6 max-h-[200px] w-full max-w-[280px]"
-              width={280}
-              height={200}
-            />
+          <div className="flex min-h-[50vh] flex-col items-center justify-center pt-6 pb-16 text-center sm:pt-8 sm:pb-20">
             <p className="text-primary mb-2 text-xl font-semibold sm:text-2xl">
               {tLng("home.noSearchResults", { query: qStr })}
             </p>

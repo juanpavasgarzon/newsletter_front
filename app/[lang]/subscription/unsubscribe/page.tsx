@@ -18,6 +18,8 @@ function UnsubscribeForm({
   lang: string;
 }) {
   const { t } = useTranslation();
+  const tLng = (key: string, opts?: Record<string, unknown>) =>
+    t(key, { ...opts, lng: lang });
   const [email, setEmail] = useState(initialEmail);
   const [status, setStatus] = useState<Status>("form");
 
@@ -81,7 +83,7 @@ function UnsubscribeForm({
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder={t("subscribe.placeholder")}
+              placeholder={tLng("subscribe.placeholder")}
               disabled={status === "loading"}
               className="border-theme bg-surface text-primary placeholder-theme w-full rounded-lg border px-4 py-3 text-base focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 disabled:opacity-50"
               autoComplete="email"

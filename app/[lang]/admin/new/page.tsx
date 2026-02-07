@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import type { SupportedLang } from "@/config/i18n";
 import { AdminGuard } from "@/features/admin/AdminGuard";
+import { useGlobalLoader } from "@/context/global-loader-context";
 import { useBasicInfoQuery } from "@/features/site/useSiteConfigQuery";
 import { useCreateArticleMutation } from "@/features/newsletter/queries";
 import { ApiError } from "@/api/articles";
@@ -18,6 +19,7 @@ export default function NewArticlePage() {
   const router = useRouter();
   const lang = typeof params?.lang === "string" ? params.lang : "es";
   const { t } = useTranslation();
+  const { triggerTransitionLoader } = useGlobalLoader();
   const create = useCreateArticleMutation();
   const [selectedLang, setSelectedLang] = useState<SupportedLang>("es");
   const { data: basicInfo } = useBasicInfoQuery(selectedLang);
@@ -26,6 +28,7 @@ export default function NewArticlePage() {
   const handleSubmit = async (
     data: Parameters<typeof create.mutateAsync>[0]
   ) => {
+    triggerTransitionLoader(500);
     try {
       const created = await create.mutateAsync(data);
       toast.success(t("admin.createSuccess"));

@@ -31,7 +31,7 @@ export default function LangLayout({
   return (
     <div className="flex min-h-screen flex-col">
       <NewsletterHeader />
-      <main className="flex-1">{children}</main>
+      <main className="flex min-h-[calc(100vh-3.5rem)] flex-1 flex-col">{children}</main>
       <Footer />
     </div>
   );

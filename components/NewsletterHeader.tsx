@@ -319,7 +319,7 @@ export function NewsletterHeader() {
                     <button
                       type="button"
                       onClick={() => openLogoutModal(() => setMenuOpen(false))}
-                      className="text-primary flex w-full items-center gap-3 rounded-lg px-3 py-2.5 font-medium hover:bg-surface-muted"
+                      className="text-primary flex min-h-[48px] w-full items-center gap-3 rounded-xl px-4 py-3 font-medium touch-manipulation hover:bg-surface-muted active:bg-surface-muted"
                     >
                       <LogOut className="h-5 w-5 shrink-0" />
                       <span>{tLng('common.logout')}</span>

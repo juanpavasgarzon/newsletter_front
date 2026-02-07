@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { ArrowLeft, Share2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useCallback, useState } from "react";
-import { ArticleNotFoundIllustration } from "@/components/illustrations";
+import { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
+import { ApiError } from "@/api/articles";
 import { getLocaleForDates } from "@/config/i18n";
 import { ArticleContent } from "@/components/ArticleContent";
 import { useArticleByGroupQuery } from "@/features/newsletter/queries";
@@ -24,11 +25,18 @@ export default function ArticlePage() {
   const groupId = typeof params?.groupId === "string" ? params.groupId : "";
   const { t } = useTranslation();
   const langKey = lang === "en" ? "en" : "es";
-  const { data: article, isLoading } = useArticleByGroupQuery(groupId, langKey);
+  const { data: article, isLoading, isError, error } = useArticleByGroupQuery(groupId, langKey);
   const locale = getLocaleForDates(langKey);
   const tLng = (key: string, opts?: Record<string, unknown>) =>
     t(key, { ...opts, lng: lang });
   const showLoader = useMinLoadingTime(isLoading, LOADER_MIN_MS);
+
+  useEffect(() => {
+    if (!showLoader && isError && error) {
+      const message = error instanceof ApiError ? error.message : tLng("article.notFoundShort");
+      toast.error(message);
+    }
+  }, [showLoader, isError, error, tLng]);
   const [shareStatus, setShareStatus] = useState<
     "idle" | "copied" | "shared"
   >("idle");
@@ -67,23 +75,18 @@ export default function ArticlePage() {
   if (!article) {
     return (
       <main className="flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center bg-surface px-4 pt-8 pb-16 sm:px-6 sm:pt-10 sm:pb-20">
-        <ArticleNotFoundIllustration
-          className="text-surface-muted mb-6 max-h-[200px] w-full max-w-[280px]"
-          width={280}
-          height={200}
-        />
         <h1 className="text-primary mb-2 text-xl font-semibold sm:text-2xl">
-          {t("article.notFound")}
+          {tLng("article.notFound")}
         </h1>
         <p className="text-surface-muted mb-8 max-w-sm text-center text-sm leading-relaxed">
-          {t("article.notFoundHint")}
+          {tLng("article.notFoundHint")}
         </p>
         <Link
           href={`/${lang}/articles`}
           className="text-accent hover:underline inline-flex items-center gap-2 text-sm font-medium"
         >
           <ArrowLeft className="h-4 w-4" />
-          {t("common.backToArticles")}
+          {tLng("common.backToArticles")}
         </Link>
       </main>
     );
@@ -98,20 +101,20 @@ export default function ArticlePage() {
             className="text-surface-muted hover:text-accent inline-flex items-center gap-2 text-sm font-medium transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
-            {t("common.backToArticles")}
+            {tLng("common.backToArticles")}
           </Link>
           <button
             type="button"
             onClick={handleShare}
             className="text-primary hover:bg-surface-muted inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors"
-            aria-label={t("common.share")}
+            aria-label={tLng("common.share")}
           >
             <Share2 className="h-4 w-4" />
             {shareStatus === "copied"
-              ? t("common.copied")
+              ? tLng("common.copied")
               : shareStatus === "shared"
-                ? t("common.shared")
-                : t("common.share")}
+                ? tLng("common.shared")
+                : tLng("common.share")}
           </button>
         </div>
 

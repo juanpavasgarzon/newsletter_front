@@ -118,7 +118,7 @@
     "author": "Author",
     "experience": "+{{years}} years of experience",
     "subscribeTitle": "Subscribe to the newsletter",
-    "appDescription": "Newsletter with programming articles."
+    "appDescription": "Articles, tutorials and thoughts on software development. Get notified when we publish something new."
   },
   "subscribe": {
     "label": "Email",
@@ -126,7 +126,7 @@
     "submit": "Subscribe",
     "submitting": "Submitting…",
     "success": "Done! We'll notify you.",
-    "langHint": "Subscription in {{langName}}.",
+    "langHint": "You'll receive updates and new articles in {{langName}}. You can change language anytime.",
     "errorGeneric": "Could not complete.",
     "errorAlreadySubscribed": "This email is already subscribed.",
     "unsubscribeSuccessTitle": "Unsubscribed",

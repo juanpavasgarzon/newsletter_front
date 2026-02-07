@@ -33,12 +33,11 @@ export default function AboutPage() {
   const isLoading = loadingBasic || loadingAbout;
   const showLoader = useMinLoadingTime(isLoading, LOADER_MIN_MS);
 
-  if (showLoader) {
-    return <PageLoader label={tLng("common.loading")} />;
-  }
-
   return (
     <main className="min-h-[calc(100vh-3.5rem)] bg-surface">
+      {showLoader ? (
+        <PageLoader label={tLng("common.loading")} />
+      ) : (
       <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-14">
         <Link
           href={`/${lang}/articles`}
@@ -89,6 +88,7 @@ export default function AboutPage() {
           )}
         </article>
       </div>
+      )}
     </main>
   );
 }

@@ -4,8 +4,8 @@ import { AppProviders } from "./providers";
 import { appEnv } from "@/config/env";
 
 export const metadata: Metadata = {
-  title: "Pavas Newsletter — Artículos de programación",
-  description: "Tutoriales, buenas prácticas y reflexiones sobre desarrollo de software.",
+  title: "Pavas Newsletter — Programming Articles",
+  description: "Tutorials, best practices, and thoughts on software development.",
 };
 
 const themeStorageKey = appEnv.themeStorageKey;

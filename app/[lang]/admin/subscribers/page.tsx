@@ -92,14 +92,14 @@ export default function AdminSubscribersPage() {
           </div>
 
           {showLoader ? (
-            <PageLoader label={t("common.loading")} />
+            <PageLoader label={t("common.loading", { lng: lang })} />
           ) : sorted.length === 0 ? (
-            <section className="bg-surface-elevated border-theme rounded-xl border">
+            <section className="bg-surface-elevated border-theme flex min-h-[50vh] flex-col rounded-xl border">
               <h2 className="text-primary border-theme flex items-center gap-2 border-b px-4 py-3 font-semibold sm:px-6">
                 <Users className="h-5 w-5" />
                 {t("admin.subscribersList")}
               </h2>
-              <p className="text-surface-muted px-4 py-8 text-center sm:px-6">
+              <p className="text-surface-muted flex flex-1 items-center justify-center px-4 py-8 text-center sm:px-6">
                 {t("admin.noSubscribers")}
               </p>
             </section>

@@ -119,7 +119,7 @@
     "author": "Autor",
     "experience": "+{{years}} años de experiencia",
     "subscribeTitle": "Suscríbete al newsletter",
-    "appDescription": "Newsletter con artículos de programación."
+    "appDescription": "Artículos, tutoriales y reflexiones sobre desarrollo de software. Recibe un aviso cuando publiquemos algo nuevo."
   },
   "subscribe": {
     "label": "Correo",
@@ -127,7 +127,7 @@
     "submit": "Suscribirme",
     "submitting": "Enviando…",
     "success": "¡Listo! Te avisaremos.",
-    "langHint": "Suscripción en {{langName}}.",
+    "langHint": "Recibirás los avisos y los nuevos artículos en {{langName}}. Puedes cambiar de idioma cuando quieras.",
     "errorGeneric": "No se pudo completar.",
     "errorAlreadySubscribed": "Este correo ya está suscrito.",
     "unsubscribeSuccessTitle": "Baja completada",
