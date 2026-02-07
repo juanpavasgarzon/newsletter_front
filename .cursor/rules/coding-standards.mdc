@@ -1,0 +1,110 @@
+---
+description: Estándares de codificación del proyecto — contratos, props, lib, una responsabilidad por archivo, if con llaves, sin comentarios
+alwaysApply: true
+---
+
+# Estándares de codificación
+
+## Funciones reutilizables en lib
+
+- Las funciones específicas o repetitivas que separan lógica van en `lib/` para reusabilidad y transparencia.
+- Si una función es usada en más de un sitio o encapsula una responsabilidad clara (formateo, validación, helpers), extraerla a un archivo en `lib/` con nombre descriptivo (p. ej. `lib/date-utils.ts`, `lib/confetti.ts`, `lib/safe-parse.ts`).
+- Dentro de componentes o páginas solo queda la orquestación; la lógica reutilizable vive en `lib/`.
+
+## Una responsabilidad por archivo
+
+Cada archivo tiene una única responsabilidad según su ubicación y tipo:
+
+| Ubicación / tipo | Contenido único |
+|------------------|------------------|
+| `api/*.ts` | Solo métodos de API (llamadas, request/response). Tipos de API en `contracts/`. |
+| `contracts/*.ts` o `features/*/contracts/*.ts` | Solo contratos, interfaces y types. Sin lógica ni llamadas. |
+| Componente (p. ej. `components/*.tsx`) | Solo la interface de props y el componente. Sin tipos de dominio globales. |
+| `lib/*.ts` | Solo utilidades y funciones reutilizables. Sin tipos de dominio (estos en contratos). |
+| `hooks/*.ts` | Solo el hook y tipos mínimos del hook. |
+| `context/*.tsx` | Solo el provider y el contexto. Tipos del contexto en `context/*-types.ts` o contratos si se comparten. |
+
+No mezcles responsabilidades: por ejemplo, en un archivo de API no definas interfaces de dominio; en un componente no definas tipos compartidos de API.
+
+## Tipos e interfaces en contratos
+
+- Los tipos e interfaces compartidos van en archivos bajo `contracts/` o en `features/<feature>/contracts/`.
+- La lógica (hooks, componentes, utilidades) importa desde contratos; no defines tipos de dominio dentro de archivos de lógica.
+
+Ejemplo de estructura:
+
+```
+contracts/
+  api.ts
+  components.ts
+features/newsletter/contracts/
+  article.ts
+  subscription.ts
+```
+
+En archivos de lógica solo tipos locales muy acotados (p. ej. props del componente).
+
+## Props en el componente
+
+- Las interfaces de props de un componente se definen en el mismo archivo del componente (o en un tipo/interface nombrado justo encima).
+- No mezcles la definición de props con contratos globales a menos que sean reutilizados en varios sitios.
+
+```tsx
+interface NewsletterHeaderProps {
+  variant?: 'default' | 'compact'
+}
+
+export function NewsletterHeader({ variant = 'default' }: NewsletterHeaderProps) {
+  // ...
+}
+```
+
+## If completos con llaves
+
+- Usa siempre llaves `{}` en `if`, `else`, `else if`, `for`, `while`.
+- No escribas el cuerpo en una sola línea sin llaves.
+
+Incorrecto:
+
+```ts
+if (stored === 'light' || stored === 'dark') return stored
+if (!checked) return null
+```
+
+Correcto:
+
+```ts
+if (stored === 'light' || stored === 'dark') {
+  return stored
+}
+if (!checked) {
+  return null
+}
+```
+
+Aplica igual a `else`, `else if`, y bucles.
+
+## Código sin comentarios
+
+- No añadas comentarios explicativos; el código debe ser autodescriptivo.
+- Usa nombres nemotécnicos (variables, funciones, tipos) que expliquen el propósito.
+- Elimina comentarios obsoletos o redundantes.
+
+Evita:
+
+```ts
+// Get theme from storage or fallback to system preference
+const theme = getStoredTheme()
+```
+
+Prefiere nombres que lo digan:
+
+```ts
+const theme = getStoredThemeOrSystemPreference()
+```
+
+## Evitar setState dentro de useEffect
+
+- No uses `setState` de forma síncrona dentro de `useEffect`; provoca renders en cascada y el lint `react-hooks/set-state-in-effect` lo marca.
+- Para estado que solo existe en el cliente (tema, sesión, lectura de localStorage): usar un store externo y `useSyncExternalStore`, con una función `hydrate()` que se llame desde `useLayoutEffect` una vez montado. Ejemplos: `lib/theme-store.ts`, `lib/admin-session-store.ts`.
+- Si en algún caso es inevitable (p. ej. sincronizar estado local con la URL), usar `eslint-disable-next-line react-hooks/set-state-in-effect` con criterio.
