@@ -24,4 +24,9 @@ export const appEnv = {
         ? process.env.NEXT_PUBLIC_APP_THEME_STORAGE_KEY
         : '',
     ) || 'newsletter-theme',
+  enableAnalytics: readEnv(
+    typeof process !== 'undefined'
+      ? process.env.NEXT_PUBLIC_ENABLE_ANALYTICS
+      : '',
+  ) === 'true',
 } as const
