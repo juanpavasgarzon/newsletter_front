@@ -25,7 +25,7 @@ export default function RootLayout({
           <script
             defer
             src="https://analytics.pavas.io/script.js"
-            data-website-id="c2bb89d5-e4aa-42f6-ab46-861d8c3518cd"
+            data-website-id="24a4fb35-1508-46a9-8e21-7972110be429"
           />
         )}
       </head>
