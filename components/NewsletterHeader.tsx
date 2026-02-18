@@ -21,7 +21,10 @@ import { useTranslation } from 'react-i18next'
 import { useTheme } from '@/context/theme-context'
 import { useGlobalLoader } from '@/context/global-loader-context'
 import { useAdminSession } from '@/context/admin-session-context'
-import { useBasicInfoQuery } from '@/features/site/useSiteConfigQuery'
+import {
+  useBasicInfoQuery,
+  useLogoQuery,
+} from '@/features/site/useSiteConfigQuery'
 import { currentLangFromLocation, pathWithLang } from '@/lib/lang-url'
 import { setStoredLanguage } from '@/lib/i18n-client'
 import { ConfirmModal } from '@/components/ConfirmModal'
@@ -38,6 +41,7 @@ export function NewsletterHeader() {
   const logoutCloseMenuRef = useRef<(() => void) | null>(null)
   const currentLang = currentLangFromLocation(pathname, i18n.language)
   const { data: basicInfo } = useBasicInfoQuery(currentLang)
+  const { data: logoData } = useLogoQuery()
   const isEn = currentLang === 'en'
 
   const tLng = (key: string, opts?: Record<string, unknown>) =>
@@ -69,6 +73,7 @@ export function NewsletterHeader() {
     })
   }
 
+  const logoUrl = logoData?.logoUrl
   const subscriberCount = basicInfo?.subscriberCount
 
   useEffect(() => {
@@ -116,13 +121,20 @@ export function NewsletterHeader() {
           href={articlesPath}
           className="text-primary flex shrink-0 items-center gap-2 font-semibold transition-opacity hover:opacity-90"
         >
-          <Image
-            src="/Pavas-logo-transparent.png"
-            alt="Pavas Newsletter"
-            width={128}
-            height={32}
-            className="h-8 w-auto object-contain"
-          />
+          {logoUrl ? (
+            <Image
+              src={logoUrl}
+              alt=""
+              width={32}
+              height={32}
+              className="h-8 w-8 rounded-full object-cover"
+              unoptimized
+            />
+          ) : (
+            <span className="text-accent text-xl font-bold">
+              Pavas Newsletter
+            </span>
+          )}
           <span className="hidden sm:inline">{tLng('common.newsletter')}</span>
         </Link>
 
