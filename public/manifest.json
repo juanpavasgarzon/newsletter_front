@@ -1,0 +1,19 @@
+{
+  "name": "Pavas Newsletter",
+  "short_name": "Pavas Newsletter",
+  "description": "Tutorials, best practices, and thoughts on software development.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#171717",
+  "background_color": "#171717",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon",
+      "purpose": "any"
+    }
+  ]
+}

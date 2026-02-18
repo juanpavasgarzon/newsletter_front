@@ -6,6 +6,21 @@ import { AppProviders } from "./providers";
 export const metadata: Metadata = {
   title: "Pavas Newsletter — Programming Articles",
   description: "Tutorials, best practices, and thoughts on software development.",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Pavas",
+  },
+  other: {
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
+    "apple-mobile-web-app-title": "Pavas",
+  },
 };
 
 const themeStorageKey = appEnv.themeStorageKey;
