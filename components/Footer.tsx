@@ -5,10 +5,7 @@ import { usePathname } from 'next/navigation'
 import { Github, Linkedin, MapPin, User } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { SubscribeForm } from '@/components/SubscribeForm'
-import {
-  useBasicInfoQuery,
-  useLogoQuery,
-} from '@/features/site/useSiteConfigQuery'
+import { useBasicInfoQuery } from '@/features/site/useSiteConfigQuery'
 import { currentLangFromLocation } from '@/lib/lang-url'
 import { experienceYears } from '@/lib/date-utils'
 
@@ -19,9 +16,7 @@ export function Footer() {
   const tLng = (key: string, opts?: Record<string, unknown>) =>
     t(key, { ...opts, lng: lang })
   const { data: basicInfo } = useBasicInfoQuery(lang)
-  const { data: logoData } = useLogoQuery()
   const author = basicInfo
-  const logoUrl = logoData?.logoUrl
 
   return (
     <footer className="border-theme mt-auto border-t bg-surface-elevated">
@@ -30,18 +25,13 @@ export function Footer() {
           {author?.name ? (
             <section>
               <h3 className="text-primary mb-4 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider">
-                {logoUrl ? (
-                  <Image
-                    src={logoUrl}
-                    alt=""
-                    width={20}
-                    height={20}
-                    className="h-5 w-5 rounded-full object-cover ring-1 ring-[var(--color-border)]"
-                    unoptimized
-                  />
-                ) : (
-                  <User className="h-4 w-4 text-accent" />
-                )}
+                <Image
+                  src="/Pavas-logo-transparent.png"
+                  alt=""
+                  width={80}
+                  height={20}
+                  className="h-5 w-auto object-contain"
+                />
                 {tLng('footer.author')}
               </h3>
               <p className="text-primary font-medium">{author.name}</p>
